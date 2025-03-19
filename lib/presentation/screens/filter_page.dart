@@ -1,5 +1,6 @@
 import 'package:diamond_kgk_app/bloc/filter/filter_state.dart';
 import 'package:diamond_kgk_app/presentation/widgets/diamond_filter_fields.dart';
+import 'package:diamond_kgk_app/presentation/widgets/theme_toggle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +23,10 @@ class _FilterPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Filter Diamonds'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Filter Diamonds'),
+        actions: [ThemeToggleButton()],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
