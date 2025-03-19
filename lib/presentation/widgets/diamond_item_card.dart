@@ -11,56 +11,58 @@ class DiamondItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We can read from a CartBloc or a CartService to see if this diamond is in cart
+    final theme = Theme.of(context);
     final cartItems = context.watch<CartBloc>().state.cartItems;
     final isInCart = cartItems.any((d) => d.lotId == diamond.lotId);
-    // In a real app, you might do:
-    // final isInCart = context.select((CartBloc bloc) => bloc.state.contains(diamond));
 
     return Card(
-      elevation: 3,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      elevation: theme.cardTheme.elevation,
+      margin: theme.cardTheme.margin ?? const EdgeInsets.symmetric(vertical: 6),
+      shape:
+          theme.cardTheme.shape ??
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      color: theme.cardTheme.color,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Row with main info
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Lot: ${diamond.lotId}',
-                  style: const TextStyle(
+                  style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
                   ),
                 ),
-                // Possibly display shape as an icon or short text
                 Text(
                   diamond.shape,
-                  style: const TextStyle(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     fontStyle: FontStyle.italic,
-                    color: Colors.grey,
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 6),
 
-            // Some key fields in a flexible layout
             Wrap(
               spacing: 16,
               runSpacing: 8,
               children: [
-                _detailChip('Carat', diamond.carat.toStringAsFixed(2)),
-                _detailChip('Color', diamond.color),
-                _detailChip('Clarity', diamond.clarity),
-                _detailChip('Lab', diamond.lab),
-                _detailChip('Price', diamond.finalAmount.toStringAsFixed(2)),
+                _detailChip(context, 'Carat', diamond.carat.toStringAsFixed(2)),
+                _detailChip(context, 'Color', diamond.color),
+                _detailChip(context, 'Clarity', diamond.clarity),
+                _detailChip(context, 'Lab', diamond.lab),
+                _detailChip(
+                  context,
+                  'Price',
+                  diamond.finalAmount.toStringAsFixed(2),
+                ),
                 if (diamond.discount != 0)
                   _detailChip(
+                    context,
                     'Discount',
                     '${diamond.discount.toStringAsFixed(2)}%',
                   ),
@@ -68,7 +70,6 @@ class DiamondItemCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
 
-            // "Add to cart" or "Remove" button
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -77,8 +78,15 @@ class DiamondItemCard extends StatelessWidget {
                     isInCart
                         ? Icons.remove_shopping_cart
                         : Icons.add_shopping_cart,
+                    color: theme.colorScheme.onPrimary,
                   ),
-                  label: Text(isInCart ? 'Remove' : 'Add to cart'),
+                  label: Text(
+                    isInCart ? 'Remove' : 'Add to cart',
+                    style: TextStyle(color: theme.colorScheme.onPrimary),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.primary,
+                  ),
                   onPressed: () {
                     if (isInCart) {
                       context.read<CartBloc>().add(
@@ -97,11 +105,16 @@ class DiamondItemCard extends StatelessWidget {
     );
   }
 
-  // A helper to style detail fields as small chips or labels
-  Widget _detailChip(String label, String value) {
+  Widget _detailChip(BuildContext context, String label, String value) {
+    final theme = Theme.of(context);
     return Chip(
-      backgroundColor: Colors.grey[100],
-      label: Text('$label: $value'),
+      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+      label: Text(
+        '$label: $value',
+        style: theme.textTheme.bodySmall?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+      ),
     );
   }
 }

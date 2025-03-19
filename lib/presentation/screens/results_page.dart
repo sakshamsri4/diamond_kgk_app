@@ -82,16 +82,24 @@ class _ResultsPageState extends State<ResultsPage> {
 
   // 1) Sorting Controls at the top
   Widget _buildSortControls(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
-      color: Colors.white,
+      color: theme.colorScheme.surface,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
-          const Text('Sort by:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Sort by:',
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(width: 8),
           // A Dropdown or segmented control for different sort criteria
           DropdownButton<SortOption>(
             value: _currentSort,
+            dropdownColor: theme.colorScheme.surface,
+            style: theme.textTheme.bodyMedium,
             items: const [
               DropdownMenuItem(
                 value: SortOption.finalPriceAsc,
