@@ -7,10 +7,11 @@ import '../../bloc/cart/cart_event.dart';
 import '../../data/models/diamond_model.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({Key? key}) : super(key: key);
+  const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
@@ -18,7 +19,7 @@ class CartPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.clear_all),
-            onPressed: () => context.read<CartBloc>().add(LoadCartEvent()),
+            onPressed: () => context.read<CartBloc>().add(ClearCartEvent()),
           ),
         ],
       ),
@@ -56,16 +57,28 @@ class CartPage extends StatelessWidget {
                   horizontal: 16,
                   vertical: 12,
                 ),
-                color: Colors.white,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _summaryTile('Total Carat', totalCarat.toStringAsFixed(2)),
-                    _summaryTile('Total Price', totalPrice.toStringAsFixed(2)),
-                    _summaryTile('Avg Price', avgPrice.toStringAsFixed(2)),
+                    _summaryTile(
+                      'Total Carat',
+                      totalCarat.toStringAsFixed(2),
+                      theme,
+                    ),
+                    _summaryTile(
+                      'Total Price',
+                      totalPrice.toStringAsFixed(2),
+                      theme,
+                    ),
+                    _summaryTile(
+                      'Avg Price',
+                      avgPrice.toStringAsFixed(2),
+                      theme,
+                    ),
                     _summaryTile(
                       'Avg Disc',
                       '${avgDiscount.toStringAsFixed(2)}%',
+                      theme,
                     ),
                   ],
                 ),
@@ -77,13 +90,33 @@ class CartPage extends StatelessWidget {
                   itemCount: cartItems.length,
                   itemBuilder: (context, index) {
                     final diamond = cartItems[index];
-                    return _CartItem(
-                      diamond: diamond,
-                      onRemove:
-                          () => context.read<CartBloc>().add(
-                            RemoveFromCartEvent(diamond.lotId),
-                          ),
+                    return Card(
+                      color: theme.cardTheme.color,
+                      elevation: theme.cardTheme.elevation,
+                      shape: theme.cardTheme.shape,
+                      margin: theme.cardTheme.margin,
+                      child: ListTile(
+                        title: Text(
+                          'Lot: ${diamond.lotId}',
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                        subtitle: Text(
+                          'Carat: ${diamond.carat.toStringAsFixed(2)}, '
+                          'Price: ${diamond.finalAmount.toStringAsFixed(2)}, '
+                          'Color: ${diamond.color}, Clarity: ${diamond.clarity}',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed:
+                              () => context.read<CartBloc>().add(
+                                RemoveFromCartEvent(diamond.lotId),
+                              ),
+                        ),
+                      ),
                     );
+
+                    
                   },
                 ),
               ),
@@ -94,42 +127,19 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  Widget _summaryTile(String label, String value) {
+  Widget _summaryTile(String label, String value, ThemeData theme) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: theme.textTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(value),
+        Text(value, style: theme.textTheme.bodyMedium),
       ],
-    );
-  }
-}
-
-class _CartItem extends StatelessWidget {
-  final DiamondModel diamond;
-  final VoidCallback onRemove;
-
-  const _CartItem({Key? key, required this.diamond, required this.onRemove})
-    : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      child: ListTile(
-        title: Text('Lot: ${diamond.lotId}'),
-        subtitle: Text(
-          'Carat: ${diamond.carat.toStringAsFixed(2)}, '
-          'Price: ${diamond.finalAmount.toStringAsFixed(2)}, '
-          'Color: ${diamond.color}, Clarity: ${diamond.clarity}',
-        ),
-        trailing: IconButton(
-          icon: const Icon(Icons.delete, color: Colors.red),
-          onPressed: onRemove,
-        ),
-      ),
     );
   }
 }
