@@ -1,4 +1,5 @@
 import 'package:diamond_kgk_app/bloc/filter/filter_event.dart';
+import 'package:diamond_kgk_app/presentation/widgets/cart_icon_with_badge.dart';
 import 'package:diamond_kgk_app/presentation/widgets/diamond_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,7 @@ class _ResultsPageState extends State<ResultsPage> {
         actions: [
           // Cart icon to navigate to cart page if needed
           IconButton(
-            icon: const Icon(Icons.shopping_cart),
+            icon: CartIconWithBadge(),
             onPressed: () {
               // Go to cart
               context.push('/cart');

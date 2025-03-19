@@ -1,5 +1,8 @@
+import 'package:diamond_kgk_app/bloc/cart/cart_bloc.dart';
+import 'package:diamond_kgk_app/bloc/cart/cart_event.dart';
 import 'package:diamond_kgk_app/data/models/diamond_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiamondItemCard extends StatelessWidget {
   final DiamondModel diamond;
@@ -9,7 +12,8 @@ class DiamondItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // We can read from a CartBloc or a CartService to see if this diamond is in cart
-    final bool isInCart = false;
+    final cartItems = context.watch<CartBloc>().state.cartItems;
+    final isInCart = cartItems.any((d) => d.lotId == diamond.lotId);
     // In a real app, you might do:
     // final isInCart = context.select((CartBloc bloc) => bloc.state.contains(diamond));
 
@@ -77,9 +81,11 @@ class DiamondItemCard extends StatelessWidget {
                   label: Text(isInCart ? 'Remove' : 'Add to cart'),
                   onPressed: () {
                     if (isInCart) {
-                      // context.read<CartBloc>().add(RemoveFromCart(diamond));
+                      context.read<CartBloc>().add(
+                        RemoveFromCartEvent(diamond.lotId),
+                      );
                     } else {
-                      // context.read<CartBloc>().add(AddToCart(diamond));
+                      context.read<CartBloc>().add(AddToCartEvent(diamond));
                     }
                   },
                 ),
