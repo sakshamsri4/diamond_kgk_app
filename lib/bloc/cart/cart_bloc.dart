@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:diamond_kgk_app/data/models/diamond_model.dart';
 import 'package:diamond_kgk_app/services/local_storage_service.dart';
 import 'cart_event.dart';
 import 'cart_state.dart';
@@ -10,6 +9,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<LoadCartEvent>(_onLoadCart);
     on<AddToCartEvent>(_onAddToCart);
     on<RemoveFromCartEvent>(_onRemoveFromCart);
+    on<ClearCartEvent>(_onClearCart);
 
     // Immediately load existing items
     add(LoadCartEvent());
@@ -43,5 +43,24 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     final updatedItems = LocalStorageService.getAllCartItems();
     emit(state.copyWith(cartItems: updatedItems));
+  }
+
+  // 4) Clear cart
+  Future<void> _onClearCart(
+    ClearCartEvent event,
+    Emitter<CartState> emit,
+  ) async {
+    await LocalStorageService.clearCart();
+    emit(state.copyWith(cartItems: []));
+  }
+
+  Stream<CartState> mapEventToState(CartEvent event) async* {
+    if (event is ClearCartEvent) {
+      // Directly clear the cart items
+      yield CartState(
+        cartItems: [],
+      ); // Assuming CartState takes a list of cart items
+    }
+    // Handle other events
   }
 }
