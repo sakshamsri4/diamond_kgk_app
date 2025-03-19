@@ -1,15 +1,52 @@
+import 'package:diamond_kgk_app/bloc/filter/filter_state.dart';
+import 'package:diamond_kgk_app/presentation/screens/diamond_filter_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-class FilterPage extends StatefulWidget {
+import '../../bloc/filter/filter_bloc.dart';
+
+class FilterPage extends StatelessWidget {
   const FilterPage({super.key});
 
   @override
-  State<FilterPage> createState() => _FilterPageState();
+  Widget build(BuildContext context) {
+    // If the FilterBloc is already provided at a higher level, just return the view:
+    return const _FilterPageView();
+  }
 }
 
-class _FilterPageState extends State<FilterPage> {
+class _FilterPageView extends StatelessWidget {
+  const _FilterPageView();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Filter Page")));
+    return Scaffold(
+      appBar: AppBar(title: const Text('Filter Diamonds'), centerTitle: true),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // Reusable widget that holds all filter fields (carat range, lab, shape, color, clarity)
+              const DiamondFilterFields(),
+
+              const SizedBox(height: 24),
+
+              // "Search" button
+              ElevatedButton(
+                onPressed: () {
+                  // Dispatch an event or read current filter from BLoC
+                  context.read<FilterBloc>().add(SearchDiamondsEvent());
+                  // Navigate to ResultsPage using named route
+                  context.go('/results');
+                },
+                child: const Text('Search'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
