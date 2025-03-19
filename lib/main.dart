@@ -6,6 +6,7 @@ import 'package:diamond_kgk_app/data/diamond_data.dart';
 import 'package:diamond_kgk_app/services/local_storage_service.dart';
 import 'package:diamond_kgk_app/services/navigation_service.dart';
 import 'package:diamond_kgk_app/services/service_locator.dart';
+import 'package:diamond_kgk_app/services/theme_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
 
   // Initialize Hive + open the required box
   await LocalStorageService.init();
+  await ThemeStorageService.init();
 
   setupLocator();
 
