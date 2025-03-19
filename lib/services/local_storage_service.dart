@@ -1,42 +1,41 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-// A service class for managing local storage using Hive.
-// This class handles operations related to a cart, storing items identified by a unique diamondId.
-class LocalStorageService {
-  static const String cartBoxName =
-      'cartBox'; // The name of the Hive box used for storing cart items.
+import '../data/models/diamond_model.dart';
 
-  // Initializes the Hive database and opens the cart box.
+class LocalStorageService {
+  static const String cartBoxName = 'cartBox'; // Box name for storing cart data
+
+  // Initializes Hive and opens the cart box
   static Future<void> init() async {
     await Hive.initFlutter();
-    await Hive.openBox(cartBoxName);
+    Hive.registerAdapter(DiamondModelAdapter()); // Register the Hive Adapter
+    await Hive.openBox<DiamondModel>(cartBoxName);
   }
 
-  // Returns the Hive box instance for the cart.
-  static Box get cartBox => Hive.box(cartBoxName);
+  // Returns the Hive box instance for cart
+  static Box<DiamondModel> get cartBox => Hive.box<DiamondModel>(cartBoxName);
 
-  // Adds an item to the cart with the specified diamondId and associated data.
-  static Future<void> addToCart(
-      String diamondId, Map<String, dynamic> diamondData) async {
-    await cartBox.put(diamondId, diamondData);
+  // Adds a DiamondModel item to the cart
+  static Future<void> addToCart(DiamondModel diamond) async {
+    await cartBox.put(diamond.lotId, diamond);
   }
 
-  // Removes an item from the cart using the specified diamondId.
+  // Removes an item from the cart using the diamond's lotId
   static Future<void> removeFromCart(String diamondId) async {
     await cartBox.delete(diamondId);
   }
 
-  // Retrieves the data of a cart item using the specified diamondId.
-  static Map<String, dynamic>? getCartItem(String diamondId) {
+  // Retrieves a DiamondModel item from the cart
+  static DiamondModel? getCartItem(String diamondId) {
     return cartBox.get(diamondId);
   }
 
-  // Retrieves all items currently in the cart.
-  static List<Map<String, dynamic>> getAllCartItems() {
-    return cartBox.values.cast<Map<String, dynamic>>().toList();
+  // Retrieves all DiamondModel items currently in the cart
+  static List<DiamondModel> getAllCartItems() {
+    return cartBox.values.toList();
   }
 
-  // Clears all items from the cart.
+  // Clears all items from the cart
   static Future<void> clearCart() async {
     await cartBox.clear();
   }
