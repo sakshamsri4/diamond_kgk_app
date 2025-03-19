@@ -1,3 +1,4 @@
+import 'package:diamond_kgk_app/bloc/cart/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,7 @@ Future<void> main() async {
         BlocProvider<FilterBloc>(
           create: (context) => FilterBloc(allDiamonds: diamondList),
         ),
-        // If you have more BLoCs, add them here
+        BlocProvider<CartBloc>(create: (context) => CartBloc()),
       ],
       child: MyApp(),
     ),
