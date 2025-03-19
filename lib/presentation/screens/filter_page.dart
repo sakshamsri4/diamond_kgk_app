@@ -1,5 +1,5 @@
 import 'package:diamond_kgk_app/bloc/filter/filter_state.dart';
-import 'package:diamond_kgk_app/presentation/screens/diamond_filter_fields.dart';
+import 'package:diamond_kgk_app/presentation/widgets/diamond_filter_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -39,7 +39,7 @@ class _FilterPageView extends StatelessWidget {
                   // Dispatch an event or read current filter from BLoC
                   context.read<FilterBloc>().add(SearchDiamondsEvent());
                   // Navigate to ResultsPage using named route
-                  context.go('/results');
+                  context.push('/results');
                 },
                 child: const Text('Search'),
               ),
