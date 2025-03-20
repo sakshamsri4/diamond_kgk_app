@@ -2,8 +2,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:diamond_kgk_app/data/models/diamond_model.dart';
 import 'package:diamond_kgk_app/data/models/filter.dart';
-import 'filter_event.dart';
 import 'filter_state.dart';
+import 'filter_event.dart';
 
 class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final List<DiamondModel> allDiamonds;

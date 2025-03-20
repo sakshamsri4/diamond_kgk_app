@@ -1,5 +1,7 @@
 // filter.dart
-class Filter {
+import 'package:equatable/equatable.dart';
+
+class Filter extends Equatable {
   final double? fromCarat;
   final double? toCarat;
   final String lab;
@@ -15,6 +17,8 @@ class Filter {
     this.color = '',
     this.clarity = '',
   });
+
+  factory Filter.initial() => const Filter();
 
   Filter copyWith({
     double? fromCarat,
@@ -33,4 +37,7 @@ class Filter {
       clarity: clarity ?? this.clarity,
     );
   }
+
+  @override
+  List<Object?> get props => [fromCarat, toCarat, lab, shape, color, clarity];
 }
