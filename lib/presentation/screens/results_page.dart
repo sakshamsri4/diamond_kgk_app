@@ -1,4 +1,4 @@
-import 'package:diamond_kgk_app/bloc/filter/filter_event.dart';
+import 'package:diamond_kgk_app/bloc/filter/filter_state.dart';
 import 'package:diamond_kgk_app/presentation/widgets/cart_icon_with_badge.dart';
 import 'package:diamond_kgk_app/presentation/widgets/diamond_item_card.dart';
 import 'package:flutter/material.dart';

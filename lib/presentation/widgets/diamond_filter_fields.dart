@@ -1,5 +1,5 @@
-import 'package:diamond_kgk_app/bloc/filter/filter_event.dart';
 import 'package:diamond_kgk_app/bloc/filter/filter_state.dart';
+import 'package:diamond_kgk_app/bloc/filter/filter_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
