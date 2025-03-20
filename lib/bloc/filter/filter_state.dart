@@ -1,36 +1,29 @@
-// filter_event.dart
+// filter_state.dart
+import 'package:diamond_kgk_app/data/models/filter.dart';
+import 'package:equatable/equatable.dart';
+import 'package:diamond_kgk_app/data/models/diamond_model.dart';
 
-abstract class FilterEvent {}
+class FilterState extends Equatable {
+  final Filter filter;
+  final List<DiamondModel> filteredDiamonds;
+  // If you want to store search results here.
 
-class UpdateCaratFromEvent extends FilterEvent {
-  final double? fromCarat;
-  UpdateCaratFromEvent(this.fromCarat);
+  const FilterState({required this.filter, required this.filteredDiamonds});
+
+  factory FilterState.initial() {
+    return FilterState(
+      filter: const Filter(), // all default/empty
+      filteredDiamonds: const [],
+    );
+  }
+
+  FilterState copyWith({Filter? filter, List<DiamondModel>? filteredDiamonds}) {
+    return FilterState(
+      filter: filter ?? this.filter,
+      filteredDiamonds: filteredDiamonds ?? this.filteredDiamonds,
+    );
+  }
+
+  @override
+  List<Object> get props => [filter, filteredDiamonds];
 }
-
-class UpdateCaratToEvent extends FilterEvent {
-  final double? toCarat;
-  UpdateCaratToEvent(this.toCarat);
-}
-
-class UpdateLabEvent extends FilterEvent {
-  final String lab;
-  UpdateLabEvent(this.lab);
-}
-
-class UpdateShapeEvent extends FilterEvent {
-  final String shape;
-  UpdateShapeEvent(this.shape);
-}
-
-class UpdateColorEvent extends FilterEvent {
-  final String color;
-  UpdateColorEvent(this.color);
-}
-
-class UpdateClarityEvent extends FilterEvent {
-  final String clarity;
-  UpdateClarityEvent(this.clarity);
-}
-
-/// The user taps "Search" button
-class SearchDiamondsEvent extends FilterEvent {}
