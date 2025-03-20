@@ -92,7 +92,7 @@ class CartPage extends StatelessWidget {
               color: theme.cardTheme.color,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withAlpha((0.1 * 255).toInt()),
                   blurRadius: 8,
                   offset: const Offset(0, -2),
                 ),
