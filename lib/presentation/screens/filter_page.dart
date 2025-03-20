@@ -1,4 +1,4 @@
-import 'package:diamond_kgk_app/bloc/filter/filter_state.dart';
+import 'package:diamond_kgk_app/bloc/filter/filter_event.dart';
 import 'package:diamond_kgk_app/presentation/widgets/diamond_filter_fields.dart';
 import 'package:diamond_kgk_app/presentation/widgets/theme_toggle_button.dart';
 import 'package:flutter/material.dart';
