@@ -88,43 +88,76 @@ class _ResultsPageState extends State<ResultsPage> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
-          Text(
-            'Sort by:',
-            style: theme.textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(width: 8),
-          // A Dropdown or segmented control for different sort criteria
-          DropdownButton<SortOption>(
-            value: _currentSort,
-            dropdownColor: theme.colorScheme.surface,
-            style: theme.textTheme.bodyMedium,
-            items: const [
-              DropdownMenuItem(
-                value: SortOption.finalPriceAsc,
-                child: Text('Price (Asc)'),
-              ),
-              DropdownMenuItem(
-                value: SortOption.finalPriceDesc,
-                child: Text('Price (Desc)'),
-              ),
-              DropdownMenuItem(
-                value: SortOption.caratAsc,
-                child: Text('Carat (Asc)'),
-              ),
-              DropdownMenuItem(
-                value: SortOption.caratDesc,
-                child: Text('Carat (Desc)'),
+          Row(
+            children: [
+              Icon(Icons.sort, color: theme.colorScheme.primary),
+              const SizedBox(width: 4),
+              Text(
+                'Sort by:',
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
-            onChanged: (value) {
-              if (value != null) {
-                setState(() {
-                  _currentSort = value;
-                });
-              }
-            },
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: DropdownButton<SortOption>(
+              value: _currentSort,
+              dropdownColor: theme.colorScheme.surface,
+              style: theme.textTheme.bodyMedium,
+              underline: const SizedBox(),
+              isExpanded: true,
+              items: [
+                DropdownMenuItem(
+                  value: SortOption.finalPriceAsc,
+                  child: Row(
+                    children: const [
+                      Icon(Icons.arrow_upward, size: 16),
+                      SizedBox(width: 4),
+                      Text('Price (Asc)'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: SortOption.finalPriceDesc,
+                  child: Row(
+                    children: const [
+                      Icon(Icons.arrow_downward, size: 16),
+                      SizedBox(width: 4),
+                      Text('Price (Desc)'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: SortOption.caratAsc,
+                  child: Row(
+                    children: const [
+                      Icon(Icons.arrow_upward, size: 16),
+                      SizedBox(width: 4),
+                      Text('Carat (Asc)'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: SortOption.caratDesc,
+                  child: Row(
+                    children: const [
+                      Icon(Icons.arrow_downward, size: 16),
+                      SizedBox(width: 4),
+                      Text('Carat (Desc)'),
+                    ],
+                  ),
+                ),
+              ],
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    _currentSort = value;
+                  });
+                }
+              },
+            ),
           ),
         ],
       ),

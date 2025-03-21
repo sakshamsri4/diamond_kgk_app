@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../bloc/cart/cart_bloc.dart';
-import '../../bloc/cart/cart_state.dart';
-import '../../bloc/cart/cart_event.dart';
+import 'package:diamond_kgk_app/bloc/cart/cart_bloc.dart';
+import 'package:diamond_kgk_app/bloc/cart/cart_state.dart';
+import 'package:diamond_kgk_app/bloc/cart/cart_event.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -105,17 +104,25 @@ class CartPage extends StatelessWidget {
                   'Total Carat',
                   totalCarat.toStringAsFixed(2),
                   theme,
+                  Icons.diamond_outlined,
                 ),
                 _summaryTile(
                   'Total Price',
                   totalPrice.toStringAsFixed(2),
                   theme,
+                  Icons.attach_money,
                 ),
-                _summaryTile('Avg Price', avgPrice.toStringAsFixed(2), theme),
+                _summaryTile(
+                  'Avg Price',
+                  avgPrice.toStringAsFixed(2),
+                  theme,
+                  Icons.trending_up,
+                ),
                 _summaryTile(
                   'Avg Disc',
                   '${avgDiscount.toStringAsFixed(2)}%',
                   theme,
+                  Icons.percent,
                 ),
               ],
             ),
@@ -125,10 +132,17 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  Widget _summaryTile(String label, String value, ThemeData theme) {
+  Widget _summaryTile(
+    String label,
+    String value,
+    ThemeData theme,
+    IconData iconData,
+  ) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Icon(iconData, size: 20, color: theme.primaryColor),
+        const SizedBox(height: 4),
         Text(
           label,
           style: theme.textTheme.bodyLarge?.copyWith(
