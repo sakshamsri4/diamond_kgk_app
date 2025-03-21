@@ -81,7 +81,7 @@ class DiamondItemCard extends StatelessWidget {
                     color: theme.colorScheme.onPrimary,
                   ),
                   label: Text(
-                    isInCart ? 'Remove' : 'Add to cart',
+                    isInCart ? 'Added' : 'Add to cart',
                     style: TextStyle(color: theme.colorScheme.onPrimary),
                   ),
                   style: ElevatedButton.styleFrom(
