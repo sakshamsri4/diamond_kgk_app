@@ -33,4 +33,8 @@ The application uses Hive for local data storage, providing a lightweight and fa
 - **Cart Data**: The items added to the shopping cart are stored in a Hive box for persistence across sessions.
 - **Theme Preferences**: The user's theme preference (light or dark) is stored to maintain consistency across app launches.
 
+## Splash Screen
+
+The application includes a splash screen that provides an initial loading experience while the app is being set up. This screen is displayed briefly before navigating to the onboarding or main screen, depending on whether the user has completed the onboarding process.
+
 For more information on Flutter development, view the [online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on mobile development, and a full API reference.
