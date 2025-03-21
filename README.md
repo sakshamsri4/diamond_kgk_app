@@ -37,4 +37,21 @@ The application uses Hive for local data storage, providing a lightweight and fa
 
 The application includes a splash screen that provides an initial loading experience while the app is being set up. This screen is displayed briefly before navigating to the onboarding or main screen, depending on whether the user has completed the onboarding process.
 
+## Screenshots
+
+Here are some screenshots of the application:
+
+![Onboarding Screen](assets/screenshots/onboarding.png)
+![Filter Screen](assets/screenshots/filter.png)
+![Cart Screen](assets/screenshots/cart.png)
+![Main Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.05.40.png)
+![Settings Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.05.43.png)
+![Profile Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.05.46.png)
+![Search Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.05.52.png)
+![Details Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.05.57.png)
+![Checkout Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.06.04.png)
+![Confirmation Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.06.12.png)
+![Summary Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.06.16.png)
+![Final Screen](assets/screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20Max%20-%202025-03-21%20at%2010.06.19.png)
+
 For more information on Flutter development, view the [online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on mobile development, and a full API reference.
